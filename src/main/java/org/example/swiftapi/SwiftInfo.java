@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Indexed;
 
 @Entity
@@ -11,6 +14,9 @@ import org.springframework.stereotype.Indexed;
         @Index(name = "idx_swiftCode8", columnList = "swiftCode8"),
         @Index(name = "idx_countryISO2", columnList = "countryISO2")
 })
+@Getter
+@Setter
+@NoArgsConstructor
 public class SwiftInfo {
     @Id
     private String swiftCode;
