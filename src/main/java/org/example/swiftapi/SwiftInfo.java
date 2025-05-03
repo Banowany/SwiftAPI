@@ -25,4 +25,8 @@ public class SwiftInfo {
     private String countryISO2;
     private String countryName;
     private String swiftCode8;
+
+    public boolean isHeadquarter() {
+        return swiftCode != null && swiftCode.startsWith("XXX", 8);
+    }
 }
