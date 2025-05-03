@@ -1,7 +1,7 @@
 package org.example.swiftapi;
 
 import org.example.swiftapi.dtos.SwiftInfoBranchResponseDTO;
-import org.example.swiftapi.dtos.SwiftInfoHeadquarterResponseDTO;
+import org.example.swiftapi.dtos.SwiftInfoCountryResponseDTO;
 import org.example.swiftapi.dtos.SwiftInfoUniversalResponseDTO;
 import org.springframework.stereotype.Service;
 
@@ -68,5 +68,24 @@ public class SwiftInfoService {
             return this.findHeadquarterSwiftInfo(swiftCode);
         }
         return this.findBranchSwiftInfo(swiftCode);
+    }
+
+    public Optional<SwiftInfoCountryResponseDTO> findSwiftInfosRelatedWithCountry(String countryISO2code) {
+        if (countryISO2code == null || countryISO2code.length() != 2) {
+            return Optional.empty();
+        }
+        countryISO2code = countryISO2code.toUpperCase();
+
+        var relatedWithCountry = swiftInfoRepository.findByCountryISO2(countryISO2code);
+        if (relatedWithCountry.isEmpty()) {
+            return Optional.empty();
+        }
+        var countryName = relatedWithCountry.getFirst().getCountryName();
+        var responseDTO = swiftInfoMapper.toCountryResponseDTO(
+                relatedWithCountry,
+                countryISO2code,
+                countryName
+        );
+        return Optional.of(responseDTO);
     }
 }
