@@ -1,8 +1,10 @@
 package org.example.swiftapi;
 
+import org.example.swiftapi.dtos.AddSwiftInfoRequestDTO;
 import org.example.swiftapi.dtos.SwiftInfoBranchResponseDTO;
 import org.example.swiftapi.dtos.SwiftInfoCountryResponseDTO;
 import org.example.swiftapi.dtos.SwiftInfoUniversalResponseDTO;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -87,5 +89,25 @@ public class SwiftInfoService {
                 countryName
         );
         return Optional.of(responseDTO);
+    }
+
+    public String createSwiftInfo(AddSwiftInfoRequestDTO addSwiftInfoRequestDTO) {
+        SwiftInfo newSwiftInfo = swiftInfoMapper.fromAddSwiftInfoDTO(addSwiftInfoRequestDTO);
+        try {
+            swiftInfoRepository.save(newSwiftInfo);
+            return newSwiftInfo.getSwiftCode() + " saved successfully";
+        }
+        catch (Exception e) {
+            return "Error while saving swift information";
+        }
+    }
+
+    public String deleteSwiftInfo(String swiftCode) {
+        try {
+            swiftInfoRepository.deleteById(swiftCode);
+            return "Swift information deleted successfully";
+        } catch (Exception e) {
+            return "Error while deleting swift information";
+        }
     }
 }
