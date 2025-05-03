@@ -9,12 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SwiftInfoHeadquarterResponseDTO {
-    private String address;
-    private String bankName;
-    private String countryISO2;
-    private String countryName;
-    private boolean isHeadquarter;
-    private String swiftCode;
+public class SwiftInfoHeadquarterResponseDTO extends SwiftInfoUniversalResponseDTO {
     private List<ShortSwiftInfoDTO> branches;
 }

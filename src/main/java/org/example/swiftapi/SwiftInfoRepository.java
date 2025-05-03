@@ -9,4 +9,5 @@ import java.util.List;
 public interface SwiftInfoRepository extends JpaRepository<SwiftInfo, String> {
     List<SwiftInfo> findBySwiftCode8(String swiftCode8);
     List<SwiftInfo> findByCountryISO2(String countryISO2);
+    List<SwiftInfo> findBySwiftCode(String swiftCode);
 }

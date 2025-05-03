@@ -58,7 +58,7 @@ public class SwiftInfoMapper {
         headquarterResponseDTO.setBankName(headquarterSwiftInfo.getBankName());
         headquarterResponseDTO.setCountryISO2(headquarterSwiftInfo.getCountryISO2());
         headquarterResponseDTO.setCountryName(headquarterSwiftInfo.getCountryName());
-        headquarterResponseDTO.setHeadquarter(headquarterResponseDTO.isHeadquarter());
+        headquarterResponseDTO.setHeadquarter(headquarterSwiftInfo.isHeadquarter());
         headquarterResponseDTO.setSwiftCode(headquarterSwiftInfo.getSwiftCode());
         var branches = swiftInfosRelatedWithHeadquarter.stream()
                 .map(this::toShortSwiftInfoDTO)
