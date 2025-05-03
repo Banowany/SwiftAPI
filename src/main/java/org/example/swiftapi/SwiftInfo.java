@@ -4,10 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Indexed;
 
 @Entity
 @Table(name = "swift_infos", indexes = {
@@ -20,9 +21,13 @@ import org.springframework.stereotype.Indexed;
 @NoArgsConstructor
 public class SwiftInfo {
     @Id
+    @NotNull
+    @Size(min = 11, max = 11)
     private String swiftCode;
     private String address;
     private String bankName;
+    @NotNull
+    @Size(min = 2, max = 2)
     private String countryISO2;
     private String countryName;
     private String swiftCode8;
