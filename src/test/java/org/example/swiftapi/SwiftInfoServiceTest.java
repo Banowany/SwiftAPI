@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class SwiftInfoServiceTest {
     @Mock
@@ -47,6 +47,8 @@ public class SwiftInfoServiceTest {
 
     SwiftInfoCountryResponseDTO commonISO2ResponseForFindCountryCode;
     SwiftInfoCountryResponseDTO nonRelatedISO2ResponseForFindCountryCode;
+
+    AddSwiftInfoRequestDTO newSwiftInfo;
 
 
     @BeforeEach
@@ -155,6 +157,13 @@ public class SwiftInfoServiceTest {
                 List.of(shortSwiftInfoNonRelatedDTO)
         );
 
+        newSwiftInfo = new AddSwiftInfoRequestDTO();
+        newSwiftInfo.setSwiftCode(swiftInfoNonRelated.getSwiftCode());
+        newSwiftInfo.setAddress(swiftInfoNonRelated.getAddress());
+        newSwiftInfo.setBankName(swiftInfoNonRelated.getBankName());
+        newSwiftInfo.setCountryISO2(swiftInfoNonRelated.getCountryISO2());
+        newSwiftInfo.setCountryName(swiftInfoNonRelated.getCountryName());
+        newSwiftInfo.setIsHeadquarter("true");
     }
 
     @Test
@@ -273,5 +282,79 @@ public class SwiftInfoServiceTest {
 
         //Assert
         assertFalse(result.isPresent());
+    }
+
+    @Test
+    void createSwiftInfo() {
+        //Arrenge
+        when(swiftInfoRepository.save(swiftInfoNonRelated))
+                .thenReturn(swiftInfoNonRelated);
+
+        when(swiftInfoMapper.fromAddSwiftInfoDTO(newSwiftInfo))
+                .thenReturn(swiftInfoNonRelated);
+
+        //Act
+        String result =
+                swiftInfoService.createSwiftInfo(newSwiftInfo);
+
+        //Assert
+        assertEquals(
+                swiftNonRelated + " saved successfully",
+                result
+        );
+    }
+
+    @Test
+    void createSwiftInfo_ErrorDuringSave() {
+        //Arrenge
+        when(swiftInfoRepository.save(swiftInfoNonRelated))
+                .thenThrow(new RuntimeException("Error during save"));
+
+        when(swiftInfoMapper.fromAddSwiftInfoDTO(newSwiftInfo))
+                .thenReturn(swiftInfoNonRelated);
+
+        //Act
+        String result =
+                swiftInfoService.createSwiftInfo(newSwiftInfo);
+
+        //Assert
+        assertEquals(
+                "Error while saving swift information",
+                result
+        );
+    }
+
+    @Test
+    void deleteSwiftInfo() {
+        //Arrenge
+        doNothing().when(swiftInfoRepository).deleteById(swiftNonRelated);
+
+        //Act
+        String result =
+                swiftInfoService.deleteSwiftInfo(swiftNonRelated);
+
+        //Assert
+        assertEquals(
+                "Swift information deleted successfully",
+                result
+        );
+    }
+
+    @Test
+    void deleteSwiftInfo_ErrorDuringDelete() {
+        //Arrenge
+        doThrow(new RuntimeException("something error"))
+                .when(swiftInfoRepository)
+                .deleteById(swiftNonRelated);
+
+        //Act
+        String result =
+                swiftInfoService.deleteSwiftInfo(swiftNonRelated);
+
+        //Assert
+        assertEquals(
+                "Error while deleting swift information",
+                result
+        );
     }
 }
