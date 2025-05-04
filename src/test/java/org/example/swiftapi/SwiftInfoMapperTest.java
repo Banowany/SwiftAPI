@@ -177,7 +177,7 @@ class SwiftInfoMapperTest {
         requestDTO.setBankName("TEST BANK");
         requestDTO.setCountryISO2("PL");
         requestDTO.setCountryName("POLAND");
-        requestDTO.setIsHeadquarter("TRUE");
+        requestDTO.setHeadquarter(true);
         requestDTO.setSwiftCode("ABCDEFGHXXX");
 
         SwiftInfo expected = new SwiftInfo();

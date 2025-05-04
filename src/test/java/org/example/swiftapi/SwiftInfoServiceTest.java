@@ -163,7 +163,7 @@ public class SwiftInfoServiceTest {
         newSwiftInfo.setBankName(swiftInfoNonRelated.getBankName());
         newSwiftInfo.setCountryISO2(swiftInfoNonRelated.getCountryISO2());
         newSwiftInfo.setCountryName(swiftInfoNonRelated.getCountryName());
-        newSwiftInfo.setIsHeadquarter("true");
+        newSwiftInfo.setHeadquarter(true);
     }
 
     @Test

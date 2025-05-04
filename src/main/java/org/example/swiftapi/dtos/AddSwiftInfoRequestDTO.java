@@ -14,7 +14,7 @@ public class AddSwiftInfoRequestDTO {
     private String bankName;
     private String countryISO2;
     private String countryName;
-    private String isHeadquarter;
+    private boolean isHeadquarter;
     private String swiftCode;
 
     public boolean isCorrectSwiftInfo() {
@@ -22,7 +22,6 @@ public class AddSwiftInfoRequestDTO {
                 && bankName != null
                 && countryISO2 != null
                 && countryName != null
-                && isHeadquarter != null
                 && swiftCode != null
                 && swiftCode.length() == 11
                 && countryISO2.length() == 2;
