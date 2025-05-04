@@ -7,6 +7,16 @@ SwiftAPI is a Spring Boot application for managing SWIFT data. The application p
 * adding new SWIFT codes, 
 * and deleting existing ones. 
 
+## Technology Stack
+
+The application is built using the following technologies:
+
+- **Java Spring Boot**: For building the RESTful API and handling the business logic.
+- **Gradle**: For dependency management and building the project.
+- **PostgreSQL**: As the relational database for storing SWIFT data.
+- **Docker Compose**: For containerizing the application and managing dependencies.
+
+
 ## Prerequisites
 - Docker Compose
 
@@ -26,6 +36,8 @@ SwiftAPI is a Spring Boot application for managing SWIFT data. The application p
     ```
     MC,BAERMCMCXXX,BIC11,BANK JULIUS BAER (MONACO) S.A.M.,"12 BOULEVARD DES MOULINS  MONACO, MONACO, 98000",MONACO,MONACO,Europe/Monaco
     ```
+
+    This file is necessary because the project starts with an empty database. When the application detects no records in the database, it will initialize and populate the database using the `swift.csv` file.
 
 ## Running Instructions
 1. Start the application using Docker Compose
