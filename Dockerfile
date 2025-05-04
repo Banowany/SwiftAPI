@@ -1,5 +1,6 @@
 FROM gradle as build
-COPY --chown=gradle:gradle . /home/gradle/project
+COPY --chown=gradle:gradle ./project /home/gradle/project
+COPY --chown=gradle:gradle ./swift.csv /home/gradle/project/src/main/resources/swift.csv
 WORKDIR /home/gradle/project
 RUN gradle build -x test
 
