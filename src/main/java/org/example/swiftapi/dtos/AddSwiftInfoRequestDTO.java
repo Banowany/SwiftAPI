@@ -25,4 +25,12 @@ public class AddSwiftInfoRequestDTO {
                 && swiftCode.length() == 11
                 && countryISO2.length() == 2;
     }
+
+    public void normalizeSwiftInfo() {
+        address = address.toUpperCase();
+        bankName = bankName.toUpperCase();
+        countryISO2 = countryISO2.toUpperCase();
+        countryName = countryName.toUpperCase();
+        swiftCode = swiftCode.toUpperCase();
+    }
 }

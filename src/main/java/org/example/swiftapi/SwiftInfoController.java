@@ -27,6 +27,7 @@ public class SwiftInfoController {
         if (swiftCode.length() != 11) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+        swiftCode = swiftCode.toUpperCase();
         Optional<SwiftInfoUniversalResponseDTO> responseDTO =
                 swiftInfoService.findSwiftInfo(swiftCode);
 
@@ -41,6 +42,7 @@ public class SwiftInfoController {
         if (countryISO2code.length() != 2) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+        countryISO2code = countryISO2code.toUpperCase();
         Optional<SwiftInfoCountryResponseDTO> responseDTO =
                 swiftInfoService.findSwiftInfosRelatedWithCountry(countryISO2code);
         return responseDTO.map(ResponseEntity::ok)
@@ -54,6 +56,7 @@ public class SwiftInfoController {
         if (!addSwiftInfoRequestDTO.isCorrectSwiftInfo()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+        addSwiftInfoRequestDTO.normalizeSwiftInfo();
         String response = swiftInfoService.createSwiftInfo(addSwiftInfoRequestDTO);
         OnlyMessageResponseDTO responseDTO = new OnlyMessageResponseDTO();
         responseDTO.setMessage(response);
@@ -65,6 +68,7 @@ public class SwiftInfoController {
         if (swiftCode.length() != 11) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+        swiftCode = swiftCode.toUpperCase();
         String response = swiftInfoService.deleteSwiftInfo(swiftCode);
         OnlyMessageResponseDTO responseDTO = new OnlyMessageResponseDTO();
         responseDTO.setMessage(response);
